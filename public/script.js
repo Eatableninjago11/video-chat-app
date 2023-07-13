@@ -8,6 +8,27 @@ var peer = new Peer(undefined, {
 })
 
 const user = prompt("Enter your Name")
+const myVideo = document.createElement("video")
+
+myVideo.muted = true
+
+let myStream 
+
+navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+})
+.then( (stream) => {
+    myStream = stream
+}) 
+
+function addVideoStream(video, stream){
+    video.srcObject = stream
+    video.addEventListener("loadMetadata", () =>{
+        video.play()
+        $("#video_grid").append(video)
+    }) 
+}
 
 $(function () {
     // this code will run when the document is ready
