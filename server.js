@@ -45,6 +45,7 @@ io.on("connection", (socket) =>{
     //()=>{} event listener
     socket.on("join-room",(roomId,userId,userName)=>{
         socket.join(roomId)
+        io.to(roomId).emit("userConnected", userId)
         socket.on("message", (message) => {
             io.to(roomId).emit("createMessage", message,userName);
         }) 
